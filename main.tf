@@ -7,6 +7,12 @@ terraform {
   }
 }
 
+module "VPC" {
+    source = "./VPC"
+}
+
 module "EC2" {
     source = "./EC2"
+    vpc_id = module.VPC.vpc_id
+    subnet_id = module.VPC.subnet_id
 }
