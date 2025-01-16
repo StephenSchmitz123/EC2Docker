@@ -1,7 +1,7 @@
 resource "aws_instance" "ec2_instance" {
   ami = "ami-063d43db0594b521b" # Amazon Linux 2 AMI
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.vpc_public_subnet.id
+  subnet_id = var.subnet_id
   key_name = aws_key_pair.my_key_pair.key_name
   security_groups = [aws_security_group.public_sg.id]
 
@@ -27,7 +27,7 @@ resource "aws_instance" "ec2_instance" {
 resource "aws_security_group" "public_sg" {
   name = "public_sg"
   description = "Allow inbound and outbound traffic"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "PublicSecurityGroup"
